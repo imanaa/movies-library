@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: MyString
+  location_id: 
+  folder_name: MyString
+  poster: MyString
+  rank: 1
+  seen: 1
+  online: false
+
+two:
+  title: MyString
+  location_id: 
+  folder_name: MyString
+  poster: MyString
+  rank: 1
+  seen: 1
+  online: false

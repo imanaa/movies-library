@@ -1,0 +1,13 @@
+// Place all the styles related to the Movies controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.poster {
+  float:left;
+  margin-right:1em;
+  display:block;
+  border:1px solid maroon;
+}
+.attributes_left {
+  float:left;
+  width:250px
+}

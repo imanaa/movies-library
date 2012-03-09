@@ -1,14 +1,87 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>MoviesLibrary</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+	<head>
+		<title>The Movies Library</title>
+		<link href="http://fonts.googleapis.com/css?family=Oswald" rel="stylesheet" type="text/css" />
+		<%= stylesheet_link_tag    "application", :media => "all" %>
+		<%= javascript_include_tag "application" %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+		<div id="wrapper">
+			<header id="header">
+				<div id="logo">
+					<h1><a href="#">The Movies Library</a></h1>
+				</div>
+				<div id="search">
+					<form action="/" method="post">
+						<div>
+							<input class="form-text" name="search" size="32" maxlength="64" />
+							<input class="form-submit" type="submit" value="Search" />
+						</div>
+					</form>
+				</div>
+				<nav id="menu">
+					<ul>
+						<li class="first current_page_item">
+							<%= link_to "Homepage", :controller => "movies", :action => "index" %>
+						</li>
+						<li>
+							<%= link_to "Locations", :controller => "locations", :action => "index" %>
+						</li>
+						<li>
+							<%= link_to "Advanced Search", :controller => "movies", :action => "index" %>
+						</li>
+						<li>
+							<a href="#">Photos</a>
+						</li>
+						<li>
+							<a href="#">Portfolio</a>
+						</li>
+						<li>
+							<a href="#">Links</a>
+						</li>
+						<li class="last">
+							<a href="#">Contact</a>
+						</li>
+					</ul>
+					<br class="clearfix" />
+				</nav>
+			</header>
+			<div id="page">
+				<%= yield %>
+				<aside id="sidebar">
+					<h3>Porta suscipit</h3>
+					<ul class="list">
+						<li class="first">
+							<a href="#">Nibh porta et hendrerit</a>
+						</li>
+						<li>
+							<a href="#">Auctor egestas odio viverra</a>
+						</li>
+						<li>
+							<a href="#">Dignissim est eget lorem</a>
+						</li>
+						<li>
+							<a href="#">Nascetur cras suspendisse</a>
+						</li>
+						<li>
+							<a href="#">Pharetra lacus nunc suscipit</a>
+						</li>
+						<li class="last">
+							<a href="#">Volutpat amet interdum</a>
+						</li>
+					</ul>
+					<h3>Nunc aliquam</h3>
+					<p>
+						Iaculis mauris gravida et suscipit congue praesent. Pulvinar porta dui ullamcorper. Integer tincidunt viverra metus purus sed viverra aenean justo ipsum tempus.
+					</p>
+				</aside>
+				<br class="clearfix" />
+			</div>
+		</div>
+		<footer id="footer">
+			Copyright (c) 2012 Imad MANAA All rights reserved.
+		</footer>
+	</body>
 </html>

@@ -5,3 +5,5 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+Location.create(:path => "C:/movies/Not Seen")
+Location.create(:path => "C:/movies/Seen")

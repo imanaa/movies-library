@@ -5,22 +5,22 @@
 		<div id="add-location">
 			<%= form_for(@location, :url => { :action => "create", :method => "post"}, :html => {}) do |f| %>
 			<%= f.text_field(:path, :class => "location-new") %>
-			<%= f.submit("Add", :class => "location-button")  %>
+			<%= f.submit("Add", :class => "form-button right-button fixed-size-button")  %>
 			<% end %>
 		</div>
 		<br class="clearfix" />
 		<ul>
 			<% @locations.each do |location| %>
 			<li>
-				<div style="width:3em;margin-right:0.5em;float:left;color:maroon;font-size:10pt">
+				<div class="number_movies">
 					<% if Dir.exists?(location.path) then %>
 					(<%= "%03d" %location.movies.size  %>)
 					<% else %>
-					<%= image_tag("img07.png", :width => 16, :height => 16) %>
+					<%= image_tag("img07.png", :width => 16, :height => 16, :alt=> "Warning") %>
 					<% end %>
 				</div>
 				<%= location.path %>
-				<%= button_to("Delete", location_path(location), :form_class => "location", :confirm => "Are you sure?", :method => :delete, :class => "location-button") %>
+				<%= button_to("Delete", location_path(location), :form_class => "location", :confirm => "Are you sure?", :method => :delete, :class => "form-button right-button fixed-size-button") %>
 			</li>
 			<% end %>
 		</ul>

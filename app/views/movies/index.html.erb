@@ -1,25 +1,35 @@
 <div id="content">
 	<h2>List of Movies</h2>
-	<% @movies.each { |movie| %>
+	<%= render 'shared/flash-messages' if !flash.empty? %>
+	<% @movies.each do |movie| %>
 	<div class="post">
-		<a href="#"><img src="<%= poster_url(movie) %>" width="100" height="150" class="poster"/></a>
+		<a href="#"><img src="<%= poster_url(movie) %>" width="100" height="150" class="poster" alt="<%= movie.title %>" /></a>
 		<h3><%= movie.title %></h3>
 		<div>
-			<div class="attributes_left">
-				<strong>Online :</strong> <%= image_tag( movie.online ? "img05.png" : "img06.png", :width => 16, :height => 16)%>
+			<%= form_for(movie, :method=>:put) do |f| %>
+			<%= hidden_field_tag("page", params[:page]) %>
+			<div class="left_column">
+				<strong>Online :</strong>
+				<%= image_tag( movie.online ? "img05.png" : "img06.png", :width => 16, :height => 16, :alt => movie.online?.to_s)%>
 				<br/>
-				<strong>Year :</strong> <%= year_to_s(movie) %>
-				<br/>
-			</div>
-			<div>
-				<strong>Rank :</strong> <%= movie.rank %> / 10
-				<br/>
-				<strong>Seen :</strong> <%= movie.seen %> time(s)
+				<strong>Year :</strong>
+				<%= f.number_field(:year, :min=>1900, :max=>2100, :id=> "movie_#{movie.id}_year", :class => "form-input") %>
 				<br/>
 			</div>
+			<div class="right_column">
+				<strong>Rank :</strong>
+				<%= f.number_field(:rank, :min=>0, :max=>10, :id=> "movie_#{movie.id}_rank", :class => "form-input") %> / 10
+				<br/>
+				<strong>Seen :</strong>
+				<%= f.number_field(:seen, :min=>0, :max=>9999, :id=> "movie_#{movie.id}_seen", :class => "form-input") %> time(s)
+			</div>
+			<%= f.submit("Save", :class => "form-button left-button") %>
+			<% end %>
+			<%= button_to("edit", edit_movie_path(movie), :method=>:get, :class=>  "form-button left-button") %>
+			<%= button_to("delete", movie_path(movie), :method=>"delete", :confirm=>'Are you sure?', :class=> "form-button left-button") %>
 		</div>
 	</div>
-	<% } %>
+	<% end %>
 	<br class="clearfix" />
 	<%= paginate @movies %>
 </div>

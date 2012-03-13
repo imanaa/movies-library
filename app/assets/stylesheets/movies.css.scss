@@ -11,7 +11,10 @@
   display:block;
   border:1px solid maroon;
 }
-.attributes_left {
+.left_column {
   float:left;
-  width:250px
+  width:250px;
+}
+.right_column {
+  margin-bottom:1em;
 }

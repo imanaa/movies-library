@@ -6,10 +6,11 @@ class LocationsController < ApplicationController
 
   def create
     @location = Location.new(params[:location])
-
     unless Dir.exists?(@location.path.to_s)
       flash[:error] = "Folder does not exists"
     else
+      #To check for possible redundance
+      @location.path = File.expand_path(@location.path)
       if @location.save then
         flash[:notice] = "Successfully Created"
       else

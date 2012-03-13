@@ -182,7 +182,7 @@ ul h4 {
 	right: 35px;
 	height: 159px;
 }
-.form-button {
+input.form-button {
 	border: 0;
 	border-top: solid 1px #FC403C;
 	border-bottom: solid 1px #B60000;
@@ -195,6 +195,13 @@ ul h4 {
 	text-transform: lowercase;
 	border-radius: 5px;
 }
+input.right-button {
+	float: right;
+}
+input.left-button {
+	float: left;
+}
+
 input.form-text {
 	padding: 5px 8px 5px 8px;
 	color: #C4B8A8;
@@ -220,10 +227,15 @@ input.form-text {
 }
 .flash {
 	font-weight: bold;
+	text-align: center;
+	margin-bottom: 1em;
 }
 .notice {
 	color: green;
 }
+.alert {
+	color: orange;
+}
 .error {
-	color: red;
+	color: maroon;
 }

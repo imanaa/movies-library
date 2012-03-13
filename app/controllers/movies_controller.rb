@@ -8,18 +8,9 @@ class MoviesController < ApplicationController
 
   def poster
     @movie = Movie.find(params[:id])
-    File.open(File.join(@movie.location.path, @movie.folder_name, @movie.poster), "rb") { |file|
-      image = file.read.to_blob
-      render :layout => false, :text => image
-    }
-    return
-
-    if File.exists?(movie.poster_path) then
-      content_type = MIME::Types.type_for(movie.poster_path).first.content_type
-      file = File.open(movie.poster_path,"rb")
-      image = file.read.to_blob
-      file.close
-      render  :layout => false, :text => image
-    end
+    filename = File.join(@movie.location.path, @movie.folder_name, @movie.poster)
+    filename = File.join(Rails.root, 'app', "assets", "images", "img01.gif") unless File.exists?(filename)
+    content_type = MIME::Types.type_for(filename).first.content_type
+    send_file filename, :type => content_type, :disposition => 'inline'
   end
 end

@@ -25,6 +25,9 @@ gem 'jquery-rails'
 # For Pagination
 gem "kaminari", "~> 0.13.0"
 
+# For Background jobs
+gem "delayed_job_active_record"
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

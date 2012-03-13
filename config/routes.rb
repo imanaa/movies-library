@@ -1,9 +1,12 @@
 MoviesLibrary::Application.routes.draw do
-  get "movies/index"
+  root :to => 'movies#index'
+  resources :movies, :only => [:index]
   #FIXME defaults is not working
   match 'movies/poster/:id.:format' => 'movies#poster', :defaults => { :format => 'jpg' }, :constraints => {:format => /(jpg|jpeg|png|gif)/}
-  root :to => 'movies#index'
-  
+  resources :locations, :only => [:index, :create, :destroy] do
+    get 'scan_all', :on => :collection
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

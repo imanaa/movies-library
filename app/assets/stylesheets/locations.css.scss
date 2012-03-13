@@ -1,0 +1,33 @@
+// Place all the styles related to the locations controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#locations-content {
+  margin-right:3em;
+}
+
+input.location-new {
+  padding: 5px 8px 5px 8px;
+  color: #C4B8A8;
+  border-radius: 5px;
+  width:30em;
+}
+
+input.location-button {
+  border: 0;
+  border-top: solid 1px #FC403C;
+  border-bottom: solid 1px #B60000;
+  font-family: Oswald, sans-serif;
+  margin-left: 1em;
+  color: #FFFFFF;
+  padding: 2px 8px 3px 8px;
+  background: #CF1302;
+  text-shadow: 0px 1px 1px #590200;
+  text-transform: lowercase;
+  border-radius: 5px;
+  width: 5em;
+  float:right;  
+}
+
+form.location {
+  float:right;
+}

@@ -11,10 +11,6 @@
  *= require_self
  *= require_tree .
  */
-#salem {
-	
-}
-
 * {
 	padding: 0;
 	margin: 0;
@@ -57,13 +53,6 @@ h3 {
 }
 h4 {
 	font-size: 1.5em;
-}
-img.alignleft {
-	float: left;
-	margin: 5px 20px 20px 0;
-}
-img.aligntop {
-	margin: 5px 0 20px 0;
 }
 p {
 	margin-bottom: 1.5em;
@@ -186,10 +175,6 @@ ul h4 {
 	border-top: 0;
 	padding-top: 0;
 }
-.post {
-	overflow: hidden;
-	margin: 0 0 20px 0;
-}
 #search {
 	line-height: 159px;
 	position: absolute;
@@ -197,7 +182,7 @@ ul h4 {
 	right: 35px;
 	height: 159px;
 }
-#search input.form-submit {
+.form-button {
 	border: 0;
 	border-top: solid 1px #FC403C;
 	border-bottom: solid 1px #B60000;
@@ -208,6 +193,11 @@ ul h4 {
 	background: #CF1302;
 	text-shadow: 0px 1px 1px #590200;
 	text-transform: lowercase;
+	border-radius: 5px;
+}
+input.form-text {
+	padding: 5px 8px 5px 8px;
+	color: #C4B8A8;
 	border-radius: 5px;
 }
 #search input.form-text {
@@ -227,4 +217,13 @@ ul h4 {
 	margin: 90px auto 0 auto;
 	width: 980px;
 	position: relative;
+}
+.flash {
+	font-weight: bold;
+}
+.notice {
+	color: green;
+}
+.error {
+	color: red;
 }

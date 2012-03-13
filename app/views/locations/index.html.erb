@@ -1,0 +1,28 @@
+<div id="content">
+	<h2>List of Locations</h2>
+	<div id="locations-content">
+		<%= render 'shared/flash-messages' if !flash.empty? %>
+		<div id="add-location">
+			<%= form_for(@location, :url => { :action => "create", :method => "post"}, :html => {}) do |f| %>
+			<%= f.text_field(:path, :class => "location-new") %>
+			<%= f.submit("Add", :class => "location-button")  %>
+			<% end %>
+		</div>
+		<br class="clearfix" />
+		<ul>
+			<% @locations.each do |location| %>
+			<li>
+				<div style="width:3em;margin-right:0.5em;float:left;color:maroon;font-size:10pt">
+					<% if Dir.exists?(location.path) then %>
+					(<%= "%03d" %location.movies.size  %>)
+					<% else %>
+					<%= image_tag("img07.png", :width => 16, :height => 16) %>
+					<% end %>
+				</div>
+				<%= location.path %>
+				<%= button_to("Delete", location_path(location), :form_class => "location", :confirm => "Are you sure?", :method => :delete, :class => "location-button") %>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+</div>

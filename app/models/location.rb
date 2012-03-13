@@ -1,6 +1,8 @@
 class Location < ActiveRecord::Base
   has_many :movies, :dependent => :destroy
-  validates :path, :presence => true, :uniqueness => true
+  #TODO: Note that some databases are configured to perform case-insensitive searches anyway.
+  validates :path, :presence => true, :uniqueness => { :case_sensitive => false }
+
   def self.scan_all
     Movie.update_all(:online => 0)
     Location.all.each { |location|
@@ -9,7 +11,7 @@ class Location < ActiveRecord::Base
   end
 
   def scan()
-    scan_folder()
+    self.delay.scan_folder()
   end
 
   private
@@ -33,6 +35,7 @@ class Location < ActiveRecord::Base
           # Update the location if needed
           movie.location = self
           movie.online = true
+          #FIXME: update the poster if not already set
           movie.save
         end
       }

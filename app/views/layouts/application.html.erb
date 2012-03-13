@@ -14,23 +14,23 @@
 					<h1><a href="#">The Movies Library</a></h1>
 				</div>
 				<div id="search">
-					<form action="/" method="post">
-						<div>
-							<input class="form-text" name="search" size="32" maxlength="64" />
-							<input class="form-submit" type="submit" value="Search" />
-						</div>
-					</form>
+					<%= form_tag("/", :method=> :get) do %>
+					<div>
+						<%= text_field_tag(:q, nil, :class => "form-text", :size => 32, :maxlength => 32) %>
+						<%= submit_tag("Search", :class => "form-button") %>
+					</div>
+					<% end %>
 				</div>
 				<nav id="menu">
 					<ul>
 						<li class="first current_page_item">
-							<%= link_to "Homepage", :controller => "movies", :action => "index" %>
+							<%= link_to "Homepage", movies_path %>
 						</li>
 						<li>
-							<%= link_to "Locations", :controller => "locations", :action => "index" %>
+							<%= link_to "Locations", locations_path %>
 						</li>
 						<li>
-							<%= link_to "Advanced Search", :controller => "movies", :action => "index" %>
+							<%= link_to "Scan", scan_all_locations_path  %>
 						</li>
 						<li>
 							<a href="#">Photos</a>
@@ -51,7 +51,11 @@
 			<div id="page">
 				<%= yield %>
 				<aside id="sidebar">
-					<h3>Porta suscipit</h3>
+					<h3>Scan Locations</h3>
+					<p>
+						Update
+					</p>
+					<h3>Nunc aliquam</h3>
 					<ul class="list">
 						<li class="first">
 							<a href="#">Nibh porta et hendrerit</a>
@@ -72,16 +76,12 @@
 							<a href="#">Volutpat amet interdum</a>
 						</li>
 					</ul>
-					<h3>Nunc aliquam</h3>
-					<p>
-						Iaculis mauris gravida et suscipit congue praesent. Pulvinar porta dui ullamcorper. Integer tincidunt viverra metus purus sed viverra aenean justo ipsum tempus.
-					</p>
 				</aside>
 				<br class="clearfix" />
 			</div>
 		</div>
 		<footer id="footer">
-			Copyright (c) 2012 Imad MANAA All rights reserved.
+			Copyright &copy; <%= Time.new.year %> Imad MANAA, All rights reserved.
 		</footer>
 	</body>
 </html>

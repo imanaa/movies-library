@@ -10,7 +10,7 @@ class LocationsController < ApplicationController
       flash[:error] = "Folder does not exists"
     else
       #To check for possible redundance
-      @location.path = File.expand_path(@location.path)
+      @location.path = File.absolute_path(@location.path)
       if @location.save then
         flash[:notice] = "Successfully Created"
       else
@@ -27,7 +27,18 @@ class LocationsController < ApplicationController
     redirect_to :action => "index", :method => "get"
   end
 
+  def scan
+    @location = Location.find(params[:id])
+    @location.scan
+    respond_to { |format|
+      format.html { redirect_to({:controller => "admin", :action => "index"}, :notice => "Scan Launched" ) }
+    }
+  end
+
   def scan_all
     Location.scan_all
+    respond_to { |format|
+      format.html { redirect_to({:controller => "admin", :action => "index"}, :notice => "Scan Launched" ) }
+    }
   end
 end

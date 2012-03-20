@@ -1,0 +1,59 @@
+<% content_for :title do %>
+<%= @movie.title %>
+<% end %>
+<div>
+	<img src="<%= poster_url(@movie) %>" width="200" height="300" class="poster" alt="<%= @movie.title %>" style="float:right;"/>
+	<%= form_for(@movie, :method=>:put) do |f| %>
+	<%= hidden_field_tag("source_form", 2) %>
+	<p>
+		<div style="width:8em;display:inline-block">
+			<%= f.label :title %>:
+		</div>
+		<%= f.text_field :title, :class => "form-input" %>
+	</p>
+	<p>
+		<div style="width:8em;display:inline-block">
+			<%= f.label :year, "Production Year" %>:
+		</div>
+		<%= f.number_field(:year, :min=>1900, :max=>2100, :class => "form-input") %>
+	</p>
+	<p>
+		<div style="width:8em;display:inline-block">
+			<%= f.label :rank %>:
+		</div>
+		<%= f.number_field(:rank, :min=>0, :max=>10, :class => "form-input") %> / 10
+	</p>
+	<p>
+		<div style="width:8em;display:inline-block">
+			<%= f.label :seen %>:
+		</div>
+		<%= f.number_field(:seen, :min=>0, :max=>9999, :class => "form-input") %> time(s)
+	</p>
+	<p>
+		<div style="width:8em;display:inline-block">
+			Online:
+		</div>
+		<a href="file://<%= File.join(@movie.location.path,@movie.folder_name) %>"> <%= image_tag( @movie.online ? "img05.png" : "img06.png", :width => 16, :height => 16, :alt => @movie.online?.to_s)%> </a>
+	</p>
+	<p align="center">
+		<%= f.submit "Save", :class=>  "form-button" %>
+		<%= f.submit("Reset", :name=> "reset", :type => "reset", :class=>  "form-button") %>
+	</p>
+	<% end %>
+</div>
+<h3>Tags</h3>
+<%= form_for([@movie, @tag], :method=>:post) do |f| %>
+<div>
+	<%= f.text_field :value, :style=>"width:30em;", :class => "form-input" %>
+	<%= f.submit "Add", :class=>  "form-button"  %>
+</div>
+<div class="text-comment">
+Separate tags with commas
+</div>
+<% end %>
+<div id='tags'>
+	<%= render @movie.tags %>
+</div>
+<br class="clearfix"/>
+<br class="clearfix"/>
+<br class="clearfix"/>

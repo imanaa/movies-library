@@ -3,41 +3,63 @@ class Location < ActiveRecord::Base
   #TODO: Note that some databases are configured to perform case-insensitive searches anyway.
   validates :path, :presence => true, :uniqueness => { :case_sensitive => false }
 
-  def self.scan_all
-    Movie.update_all(:online => 0)
+  def Location.scan_all
     Location.all.each { |location|
-      location.scan if Dir.exists?(location.path)
+      location.scan()
     }
   end
 
-  def scan()
+  def scan
     self.delay.scan_folder()
+    #scan_folder()
+  end
+
+  # Does this locations exists ?
+  def exists?
+    Dir.exists?(path)
+  end
+
+  # Does the movie exists inside this location ?
+  def Location.movie_folder_exists?(movie)
+    Dir.exists?(File.join(movie.location.path, movie.folder_name))
+  end
+
+  # Does the movie exists inside this location ?
+  def Location.poster_file_exists?(movie)
+    File.exists?(File.join(movie.location.path, movie.folder_name, movie.poster))
+  end
+
+  # Returns an array of possible poster files
+  def Location.poster_files(movie)
+    Dir.chdir(File.join(movie.location.path, movie.folder_name)) {
+      return Dir['*.{jpg,jpeg,png,gif}']
+    }
   end
 
   private
 
   def scan_folder
-    Dir.chdir(self.path) {
+    movies.update_all(:online => false)
+    return unless Dir.exists?(path)
+    Dir.chdir(path) {
       Dir['*/'].each { |movie_folder|
-        movie_folder.delete!("/")
+        movie_folder = File.basename(movie_folder)
         movie = Movie.find_by_folder_name(movie_folder)
         if movie==nil then
-          Dir.chdir(movie_folder) {
-            # Find a random poster image
-            images = Dir['*.{jpg,jpeg,png,gif}']
-            movie_poster = images.empty? ? nil : images.first
-            # Guess the production year
-            movie_year = movie_folder[/(20|19)\d{2}/]
-            movie_year = 1900 if movie_year == nil
-            movie = self.movies.create(:title=>movie_folder, :folder_name=>movie_folder, :online=>true, :poster=>movie_poster, :year=>movie_year)
-          }
-        else
-          # Update the location if needed
-          movie.location = self
-          movie.online = true
-          #FIXME: update the poster if not already set
-          movie.save
+          movie = Movie.new(:title => movie_folder, :folder_name => movie_folder)
+          # Guess the production year
+          movie_year = movie_folder[/(20|19)\d{2}/]
+          #FIXME: 1900 sould not be hardcoded
+          movie.year = movie_year.nil? ? 1900 : movie_year.to_i
         end
+        movie.location = self
+        movie.online = true
+        # Choose a random movie poster
+        unless movie.poster_file_exists? then
+          posters = Location.poster_files(movie)
+          movie.poster = posters.empty? ? nil : posters.first
+        end
+        movie.save
       }
     }
   end

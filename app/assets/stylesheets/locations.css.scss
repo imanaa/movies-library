@@ -1,24 +1,9 @@
 // Place all the styles related to the locations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-#locations-content {
-  margin-right:3em;
-}
-
-input.fixed-size-button {
-  width: 5em;
-}
-input.location-new {
-  padding: 5px 8px 5px 8px;
-  color: #C4B8A8;
-  border-radius: 5px;
+input.location-text {
   width:30em;
 }
-
-form.location {
-  float:right;
-}
-
 .number_movies {
   width:3em;
   margin-right:0.5em;

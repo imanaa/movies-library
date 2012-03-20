@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120312162005) do
+ActiveRecord::Schema.define(:version => 20120313222315) do
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -49,5 +49,14 @@ ActiveRecord::Schema.define(:version => 20120312162005) do
   end
 
   add_index "movies", ["location_id"], :name => "index_movies_on_location_id"
+
+  create_table "tags", :force => true do |t|
+    t.string   "value"
+    t.integer  "movie_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "tags", ["movie_id"], :name => "index_tags_on_movie_id"
 
 end

@@ -198,10 +198,18 @@ input.form-button {
 input.right-button {
 	float: right;
 }
+form.right-button {
+	float: right;
+}
 input.left-button {
 	float: left;
 }
-
+form.left-button {
+	float: left;
+}
+input.fixed-size-button {
+	width: 5em;
+}
 input.form-text {
 	padding: 5px 8px 5px 8px;
 	color: #C4B8A8;
@@ -225,6 +233,9 @@ input.form-text {
 	width: 980px;
 	position: relative;
 }
+#content-margin {
+	margin-right: 3em;
+}
 .flash {
 	font-weight: bold;
 	text-align: center;
@@ -237,5 +248,9 @@ input.form-text {
 	color: orange;
 }
 .error {
+	color: maroon;
+}
+.text-comment {
+	font-size: smaller;
 	color: maroon;
 }

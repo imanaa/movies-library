@@ -30,26 +30,18 @@
 							<%= link_to "Locations", locations_path %>
 						</li>
 						<li>
-							<%= link_to "Scan", scan_all_locations_path  %>
-						</li>
-						<li>
-							<a href="#">Photos</a>
-						</li>
-						<li>
-							<a href="#">Portfolio</a>
-						</li>
-						<li>
-							<a href="#">Links</a>
-						</li>
-						<li class="last">
-							<a href="#">Contact</a>
+							<%= link_to "Administration", admin_index_path  %>
 						</li>
 					</ul>
 					<br class="clearfix" />
 				</nav>
 			</header>
 			<div id="page">
-				<%= yield %>
+				<div id="content">
+					<h2><%= yield :title %></h2>
+					<%= render 'shared/flash-messages' if !flash.empty? %>
+					<%= yield %>
+				</div>
 				<aside id="sidebar">
 					<h3>Scan Locations</h3>
 					<p>

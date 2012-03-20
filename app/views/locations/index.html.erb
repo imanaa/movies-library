@@ -1,28 +1,28 @@
-<div id="content">
-	<h2>List of Locations</h2>
-	<div id="locations-content">
-		<%= render 'shared/flash-messages' if !flash.empty? %>
-		<div id="add-location">
-			<%= form_for(@location, :url => { :action => "create", :method => "post"}, :html => {}) do |f| %>
-			<%= f.text_field(:path, :class => "location-new") %>
-			<%= f.submit("Add", :class => "form-button right-button fixed-size-button")  %>
-			<% end %>
-		</div>
-		<br class="clearfix" />
-		<ul>
-			<% @locations.each do |location| %>
-			<li>
-				<div class="number_movies">
-					<% if Dir.exists?(location.path) then %>
-					(<%= "%03d" %location.movies.size  %>)
-					<% else %>
-					<%= image_tag("img07.png", :width => 16, :height => 16, :alt=> "Warning") %>
-					<% end %>
-				</div>
-				<%= location.path %>
-				<%= button_to("Delete", location_path(location), :form_class => "location", :confirm => "Are you sure?", :method => :delete, :class => "form-button right-button fixed-size-button") %>
-			</li>
-			<% end %>
-		</ul>
+<% content_for :title do %>
+list of locations
+<% end %>
+<div id="content-margin">
+	<div>
+		<%= form_for(@location, :url => { :action => "create", :method => "post"}, :html => {}) do |f| %>
+		<%= f.text_field(:path, :class => "form-text location-text") %>
+		<%= f.submit("Add", :class => "form-button right-button fixed-size-button")  %>
+		<% end %>
 	</div>
+	<br class="clearfix" />
+	<ul>
+		<% @locations.each do |location| %>
+		<li>
+			<div class="number_movies">
+				<% if location.exists? then %>
+				(<%= "%03d" %location.movies.size  %>)
+				<% else %>
+				<%= image_tag("img07.png", :width => 16, :height => 16, :alt=> "Warning") %>
+				<% end %>
+			</div>
+			<%= location.path %>
+			<%= button_to("Delete", location_path(location), :form_class => "right-button", :confirm => "Are you sure?", :method => :delete, :class => "form-button right-button fixed-size-button") %>
+			<%= button_to("Scan", scan_location_path(location), :form_class => "right-button", :method => :get, :class => "form-button right-button") %>
+		</li>
+		<% end %>
+	</ul>
 </div>

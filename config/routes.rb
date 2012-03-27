@@ -1,13 +1,11 @@
 MoviesLibrary::Application.routes.draw do
   root :to => 'movies#index'
   resources :movies, :only => [:index, :edit, :update, :destroy] do
-    resources :tags,  :only => [:create, :destory]
+    get :poster, :on => :member, :format=>/(jpg|jpeg|png|gif)/
+    resources :tags,  :except => [:new, :edit, :show, :update]
   end
 
-  #FIXME defaults is not working
-  match 'movies/poster/:id.:format' => 'movies#poster', :defaults => { :format => 'jpg' }, :constraints => {:format => /(jpg|jpeg|png|gif)/}
-
-  resources :locations, :only => [:index, :create, :destroy] do
+  resources :locations, :only => [:index, :update, :edit, :destroy] do
     get 'scan_all', :on => :collection
     get 'scan', :on => :member
   end

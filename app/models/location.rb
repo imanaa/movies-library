@@ -31,8 +31,10 @@ class Location < ActiveRecord::Base
 
   # Returns an array of possible poster files
   def Location.poster_files(movie)
-    Dir.chdir(File.join(movie.location.path, movie.folder_name)) {
-      return Dir['*.{jpg,jpeg,png,gif}']
+    _directory = File.join(movie.location.path, movie.folder_name)
+    return [] unless Dir.exists?(_directory)
+    Dir.chdir(_directory ) {
+      return Dir['*.{jpg,jpeg,png,gif}'].sort()
     }
   end
 

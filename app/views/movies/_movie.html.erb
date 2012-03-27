@@ -1,5 +1,5 @@
 <div class="post">
-	<a href="#"><img src="<%= poster_url(movie) %>" width="100" height="150" class="poster" alt="<%= movie.title %>" /></a>
+	<a href="#"><%= image_tag poster_url(movie), :size=>"200x300", :alt=>movie.title, :class=>"poster" %></a>
 	<h3><%= movie.title %></h3>
 	<div>
 		<%= form_for(movie, :method=>:put) do |f| %>

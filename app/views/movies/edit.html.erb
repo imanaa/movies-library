@@ -2,9 +2,17 @@
 <%= @movie.title %>
 <% end %>
 <div>
-	<img src="<%= poster_url(@movie) %>" width="200" height="300" class="poster" alt="<%= @movie.title %>" style="float:right;"/>
-	<%= form_for(@movie, :method=>:put) do |f| %>
+	<div style="float:right;width:200px" class="text-comment">
+		<div id="slideshow" onclick="javascript: change_poster();">
+			<% 0.upto(@poster_files.size) do |index| %>
+			<%= image_tag poster_url(@movie,index), :size=>"200x300", :alt=>@movie.title, :class=>"poster #{(@poster_index==index)? 'active': ''}" %>
+			<% end %>
+		</div>
+		Change the poster by clicking on it
+	</div>
+	<%= form_for(@movie, :method=>:put, :id=>"edit_movie") do |f| %>
 	<%= hidden_field_tag("source_form", 2) %>
+	<%= hidden_field_tag("poster_index", @poster_index) %>
 	<p>
 		<div style="width:8em;display:inline-block">
 			<%= f.label :title %>:
@@ -37,18 +45,16 @@
 	</p>
 	<p align="center">
 		<%= f.submit "Save", :class=>  "form-button" %>
-		<%= f.submit("Reset", :name=> "reset", :type => "reset", :class=>  "form-button") %>
-	</p>
 	<% end %>
 </div>
 <h3>Tags</h3>
-<%= form_for([@movie, @tag], :method=>:post) do |f| %>
+<%= form_for([@movie, @new_tag], :method=>:post) do |f| %>
 <div>
 	<%= f.text_field :value, :style=>"width:30em;", :class => "form-input" %>
 	<%= f.submit "Add", :class=>  "form-button"  %>
 </div>
 <div class="text-comment">
-Separate tags with commas
+	Separate tags with commas
 </div>
 <% end %>
 <div id='tags'>

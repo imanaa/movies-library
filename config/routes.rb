@@ -5,7 +5,7 @@ MoviesLibrary::Application.routes.draw do
     resources :tags,  :except => [:new, :edit, :show, :update]
   end
 
-  resources :locations, :only => [:index, :update, :edit, :destroy] do
+  resources :locations, :only => [:index, :create, :update, :edit, :destroy] do
     get 'scan_all', :on => :collection
     get 'scan', :on => :member
   end

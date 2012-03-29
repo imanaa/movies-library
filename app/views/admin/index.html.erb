@@ -9,9 +9,13 @@ Administration
 			<%= button_to("go !", scan_all_locations_path, :form_class => "right-button", :method => :get, :class => "form-button right-button") %>
 		</li>
 		<li>
-			Remove All Offline Movies 
+			Remove All Offline Movies
 			(<%= Movie.where(:online => false).size %>/<%= Movie.all.size %>)
 			<%= button_to("go !", {:controller=>"admin", :action=>"delete_offline"}, :form_class => "right-button", :method => :get, :confirm=> "Are you sure ?", :class => "form-button right-button") %>
+		</li>
+		<li>
+			Reindex All Movies
+			<%= button_to("go !", {:controller=>"admin", :action=>"reindex"}, :form_class => "right-button", :method => :get, :confirm=> "Are you sure ?", :class => "form-button right-button") %>
 		</li>
 	</ul>
 </div>

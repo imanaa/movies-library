@@ -7,8 +7,7 @@ class CreateMovies < ActiveRecord::Migration
       t.string :poster
       t.integer :rank, :default=>0
       t.integer :seen, :default=>0
-      #FIXME: 1900 sould not be hardcoded
-      t.integer :year, :default=>1900
+      t.integer :year, :default=>nil
       t.boolean :online, :default=>true
 
       t.timestamps

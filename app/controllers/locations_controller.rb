@@ -24,21 +24,23 @@ class LocationsController < ApplicationController
   def destroy
     Location.destroy(params[:id])
     flash[:notice] = "Successfully Deleted"
-    redirect_to :action => "index", :method => "get"
+    respond_to { |format|
+      format.html { redirect_to :action => "index", :method => "get" }
+    }
   end
 
   def scan
     @location = Location.find(params[:id])
     @location.scan
     respond_to { |format|
-      format.html { redirect_to({:controller => "admin", :action => "index"}, :notice => "Scan Launched" ) }
+      format.html { redirect_to({:controller => "admin", :action => "index", :status=> 303}, :notice => "Scan Launched" ) }
     }
   end
 
   def scan_all
     Location.scan_all
     respond_to { |format|
-      format.html { redirect_to({:controller => "admin", :action => "index"}, :notice => "Scan Launched" ) }
+      format.html { redirect_to({:controller => "admin", :action => "index", :status=> 303}, :notice => "Scan Launched" ) }
     }
   end
 end

@@ -51,8 +51,7 @@ class Location < ActiveRecord::Base
           movie = Movie.new(:title => movie_folder, :folder_name => movie_folder)
           # Guess the production year
           movie_year = movie_folder[/(20|19)\d{2}/]
-          #FIXME: 1900 sould not be hardcoded
-          movie.year = movie_year.nil? ? 1900 : movie_year.to_i
+          movie.year = movie_year.nil? ? nil : movie_year.to_i
         end
         movie.location = self
         movie.online = true

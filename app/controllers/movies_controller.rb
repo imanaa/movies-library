@@ -40,12 +40,10 @@ class MoviesController < ApplicationController
 
   def update
     @movie = Movie.find(params[:id])
-    #FIXME: Does this override the flash value
-    flash  = {}
 
     _success = @movie.update_attributes(params[:movie])
     @movie.poster = Location.poster_files(@movie)[params[:poster_index].to_i-1].to_s
-    @movie.save!
+    _success &= @movie.save
 
     if _success then
       flash[:notice] = "Movie was successfully updated."
@@ -54,11 +52,7 @@ class MoviesController < ApplicationController
     end
 
     respond_to do |format|
-      if (params[:source_form].to_i==2) then
-        format.html { redirect_to edit_movie_path, :flash => flash }
-      else
-        format.html { redirect_to( {:action => "index", :page => params[:page]}, :flash => flash ) }
-      end
+      format.html { redirect_to edit_movie_path, :status => 303, :flash => flash }
     end
   end
 
@@ -66,5 +60,31 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     @movie.destroy
     redirect_to :root
+  end
+
+  def search
+    year = [ params[:year_1].to_i, params[:year_2].to_i ]
+    year = (year.min)..(year.max)
+    rank = [ params[:rank_1].to_i, params[:rank_2].to_i ]
+    rank = (rank.min)..(rank.max)
+    seen = [ params[:seen_1].to_i, params[:seen_2].to_i ]
+    seen = (seen.min)..(seen.max)
+
+    @search = Movie.search do
+      all_of do
+        with(:online, false) unless params[:offline].nil?
+        with(:online, true) unless params[:online].nil?
+        with(:year, year) unless (params[:year_1].to_s.empty?) or (params[:year_2].to_s.empty?)
+        with(:rank, rank) unless (params[:rank_1].to_s.empty?) or (params[:rank_2].to_s.empty?)
+        with(:seen, seen) unless (params[:seen_1].to_s.empty?) or (params[:seen_2].to_s.empty?)
+      end
+      keywords params[:q] unless params[:q].nil?
+      paginate :page => params[:page], :per_page => 10
+    end
+    @movies = @search.results
+
+    respond_to do |format|
+      format.html { }
+    end
   end
 end

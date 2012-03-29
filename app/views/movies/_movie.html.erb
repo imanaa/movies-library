@@ -1,8 +1,8 @@
 <div class="post">
-	<a href="#"><%= image_tag poster_url(movie), :size=>"200x300", :alt=>movie.title, :class=>"poster" %></a>
-	<h3><%= movie.title %></h3>
+	<a href="#"><%= image_tag poster_url(movie), :size=>"100x150", :alt=>movie.title, :class=>"poster" %></a>
+	<h3><%= movie.pretty_title %></h3>
 	<div>
-		<%= form_for(movie, :method=>:put) do |f| %>
+		<%= form_for(movie, :method=>:put, :html => { :target=>"_blank" } ) do |f| %>
 		<%= hidden_field_tag("source_form", 1) %>
 		<%= hidden_field_tag("page", params[:page]) %>
 		<div class="left_column">
@@ -10,15 +10,15 @@
 			<%= image_tag( movie.online ? "img05.png" : "img06.png", :width => 16, :height => 16, :alt => movie.online?.to_s)%>
 			<br/>
 			<strong>Year :</strong>
-			<%= f.number_field(:year, :min=>1900, :max=>2100, :id=> "movie_#{movie.id}_year", :class => "form-input") %>
+			<%= f.number_field(:year, :in=>Movie.range(:year), :id=> "movie_#{movie.id}_year", :class => "form-input") %>
 			<br/>
 		</div>
 		<div class="right_column">
 			<strong>Rank :</strong>
-			<%= f.number_field(:rank, :min=>0, :max=>10, :id=> "movie_#{movie.id}_rank", :class => "form-input") %> / 10
+			<%= f.number_field(:rank, :in=>Movie.range(:rank), :id=> "movie_#{movie.id}_rank", :class => "form-input") %> / 10
 			<br/>
 			<strong>Seen :</strong>
-			<%= f.number_field(:seen, :min=>0, :max=>9999, :id=> "movie_#{movie.id}_seen", :class => "form-input") %> time(s)
+			<%= f.number_field(:seen, :in=>0..9999, :id=> "movie_#{movie.id}_seen", :class => "form-input") %> time(s)
 		</div>
 		<%= f.submit("Save", :class => "form-button left-button") %>
 		<% end %>

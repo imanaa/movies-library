@@ -1,0 +1,7 @@
+<% content_for :title do %>
+Search Results (Found <%=@search.total%>)
+<% end %>
+
+<%= render @movies %>
+<br class="clearfix" />
+<%= paginate @movies %> 

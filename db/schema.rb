@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20120313222315) do
     t.string   "poster"
     t.integer  "rank",        :default => 0
     t.integer  "seen",        :default => 0
-    t.integer  "year",        :default => 1900
+    t.integer  "year"
     t.boolean  "online",      :default => true
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false

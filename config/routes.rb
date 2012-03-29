@@ -2,6 +2,7 @@ MoviesLibrary::Application.routes.draw do
   root :to => 'movies#index'
   resources :movies, :only => [:index, :edit, :update, :destroy] do
     get :poster, :on => :member, :format=>/(jpg|jpeg|png|gif)/
+    get :search, :on => :collection
     resources :tags,  :except => [:new, :edit, :show, :update]
   end
 
@@ -11,6 +12,7 @@ MoviesLibrary::Application.routes.draw do
   end
   resources :admin, :only => [:index] do
     get 'delete_offline', :on => :collection
+    get 'reindex', :on => :collection
   end
 
   # The priority is based upon order of creation:

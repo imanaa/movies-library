@@ -1,5 +1,5 @@
 <% content_for :title do %>
-<%= @movie.title %>
+<%= @movie.pretty_title %>
 <% end %>
 <div>
 	<div style="float:right;width:200px" class="text-comment">
@@ -23,19 +23,19 @@
 		<div style="width:8em;display:inline-block">
 			<%= f.label :year, "Production Year" %>:
 		</div>
-		<%= f.number_field(:year, :min=>1900, :max=>2100, :class => "form-input") %>
+		<%= f.number_field(:year, :in=>Movie.range(:year), :class => "form-input") %>
 	</p>
 	<p>
 		<div style="width:8em;display:inline-block">
 			<%= f.label :rank %>:
 		</div>
-		<%= f.number_field(:rank, :min=>0, :max=>10, :class => "form-input") %> / 10
+		<%= f.number_field(:rank, :in=>0..10, :class => "form-input") %> / 10
 	</p>
 	<p>
 		<div style="width:8em;display:inline-block">
 			<%= f.label :seen %>:
 		</div>
-		<%= f.number_field(:seen, :min=>0, :max=>9999, :class => "form-input") %> time(s)
+		<%= f.number_field(:seen, :in=>0..9999, :class => "form-input") %> time(s)
 	</p>
 	<p>
 		<div style="width:8em;display:inline-block">
@@ -45,6 +45,7 @@
 	</p>
 	<p align="center">
 		<%= f.submit "Save", :class=>  "form-button" %>
+	</p>
 	<% end %>
 </div>
 <h3>Tags</h3>

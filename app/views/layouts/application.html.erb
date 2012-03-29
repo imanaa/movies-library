@@ -14,9 +14,9 @@
 					<h1><a href="#">The Movies Library</a></h1>
 				</div>
 				<div id="search">
-					<%= form_tag("/", :method=> :get) do %>
+					<%= form_tag(search_movies_path, :method=> :get) do %>
 					<div>
-						<%= text_field_tag(:q, nil, :class => "form-text", :size => 32, :maxlength => 32) %>
+						<%= search_field_tag(:q, params[:q], :class => "form-text", :size => 32, :maxlength => 32) %>
 						<%= submit_tag("Search", :class => "form-button") %>
 					</div>
 					<% end %>
@@ -43,31 +43,48 @@
 					<%= yield %>
 				</div>
 				<aside id="sidebar">
-					<h3>Scan Locations</h3>
-					<p>
-						Update
-					</p>
-					<h3>Nunc aliquam</h3>
+					<div>
+						<h3 style="display:inline;">Scan Locations</h3>
+						<%= button_to("Launch", scan_all_locations_path, :form_class => "right-button", :method => :get, :class => "form-button") %>
+					</div>
+					<br />
+					<h3>Filters</h3>
+					<%= form_tag(search_movies_path, :method=> :get) do %>
+					<%= hidden_field_tag(:q, params[:q]) %>
 					<ul class="list">
 						<li class="first">
-							<a href="#">Nibh porta et hendrerit</a>
+							<%= label_tag 'online', 'Online :', :class=>"filter" %>
+							<%= check_box_tag(:online, true, params[:online], options = {}) %>
 						</li>
 						<li>
-							<a href="#">Auctor egestas odio viverra</a>
+							<%= label_tag 'offline', 'Offline :', :class=>"filter" %>
+							<%= check_box_tag(:offline, true, params[:offline], options = {}) %>
 						</li>
 						<li>
-							<a href="#">Dignissim est eget lorem</a>
+							<%= label_tag 'year_1', 'Year Range :', :class=>"filter" %>
+							<%= number_field_tag(:year_1, params[:year_1], :in=>Movie.range(:year), :size=>4, :class=>"filter-text") %>
+							-
+							<%= number_field_tag(:year_2, params[:year_2], :in=>Movie.range(:year), :size=>4, :class=>"filter-text") %>
 						</li>
 						<li>
-							<a href="#">Nascetur cras suspendisse</a>
+							<%= label_tag 'rank_1', 'Rank Range :', :class=>"filter" %>
+							<%= number_field_tag(:rank_1, params[:rank_1], :in=>Movie.range(:rank), :size=>4, :class=>"filter-text") %>
+							-
+							<%= number_field_tag(:rank_2, params[:rank_2], :in=>Movie.range(:rank), :size=>4, :class=>"filter-text") %>
 						</li>
 						<li>
-							<a href="#">Pharetra lacus nunc suscipit</a>
+							<%= label_tag 'seen_1', 'Seen Range:', :class=>"filter" %>
+							<%= number_field_tag(:seen_1, params[:seen_1], :in=>0..9999, :size=>4, :class=>"filter-text") %>
+							-
+							<%= number_field_tag(:seen_2, params[:seen_2], :in=>0..9999, :size=>4, :class=>"filter-text") %>
 						</li>
 						<li class="last">
-							<a href="#">Volutpat amet interdum</a>
+							<p align="center">
+								<%= submit_tag("Search", :class => "form-button right-button") %>
+							</p>
 						</li>
 					</ul>
+					<% end %>
 				</aside>
 				<br class="clearfix" />
 			</div>

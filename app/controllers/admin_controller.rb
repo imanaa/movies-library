@@ -1,7 +1,9 @@
 class AdminController < ApplicationController
+  # Main Page
   def index
   end
 
+  # Remove all offline movies
   def delete_offline
     Movie.where(:online => false).destroy_all
     respond_to { |format|
@@ -9,6 +11,7 @@ class AdminController < ApplicationController
     }
   end
 
+  # Reindex Movies - for searching via solr
   def reindex
     Movie.delay.reindex
     #Movie.reindex

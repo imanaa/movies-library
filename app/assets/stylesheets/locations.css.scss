@@ -11,3 +11,11 @@ input.location-text {
   color:maroon;
   font-size:10pt;
 }
+div.online_location {
+  color: black;
+  display: inline;
+}
+div.offline_location {
+  color: red;
+  display: inline;
+}

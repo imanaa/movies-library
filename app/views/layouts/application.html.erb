@@ -32,6 +32,9 @@
 						<li>
 							<%= link_to "Administration", admin_index_path  %>
 						</li>
+						<li>
+							<%= link_to "Random Movie", random_movies_path  %>
+						</li>
 					</ul>
 					<br class="clearfix" />
 				</nav>
@@ -54,11 +57,11 @@
 					<ul class="list">
 						<li class="first">
 							<%= label_tag 'online', 'Online :', :class=>"filter" %>
-							<%= check_box_tag(:online, true, params[:online], options = {}) %>
+							<%= check_box_tag(:online, true, params[:online]) %>
 						</li>
 						<li>
 							<%= label_tag 'offline', 'Offline :', :class=>"filter" %>
-							<%= check_box_tag(:offline, true, params[:offline], options = {}) %>
+							<%= check_box_tag(:offline, true, params[:offline]) %>
 						</li>
 						<li>
 							<%= label_tag 'year_1', 'Year Range :', :class=>"filter" %>
@@ -74,9 +77,9 @@
 						</li>
 						<li>
 							<%= label_tag 'seen_1', 'Seen Range:', :class=>"filter" %>
-							<%= number_field_tag(:seen_1, params[:seen_1], :in=>0..9999, :size=>4, :class=>"filter-text") %>
+							<%= number_field_tag(:seen_1, params[:seen_1], :in=>Movie.range(:seen), :size=>4, :class=>"filter-text") %>
 							-
-							<%= number_field_tag(:seen_2, params[:seen_2], :in=>0..9999, :size=>4, :class=>"filter-text") %>
+							<%= number_field_tag(:seen_2, params[:seen_2], :in=>Movie.range(:seen), :size=>4, :class=>"filter-text") %>
 						</li>
 						<li class="last">
 							<p align="center">

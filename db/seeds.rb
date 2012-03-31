@@ -1,3 +1,4 @@
+# coding: utf-8
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -11,6 +12,7 @@ Location.create(:path => "K:/Movies/Action")
 Location.create(:path => "K:/Movies/Animation")
 Location.create(:path => "K:/Movies/Drama & Suspense")
 Location.create(:path => "K:/Movies/Mangas")
-Location.create(:path => "K:/Movies/Romance & Comedie")
+Location.create(:path => "D:/Users/imad/Downloads/03_MOVIES/Not Seen")
+Location.create(:path => "K:/Movies/Romance & Comédie")
 Location.create(:path => "K:/Movies/Teenager")
 Location.create(:path => "K:/Movies/Thriller & Peur")

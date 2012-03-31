@@ -2,16 +2,8 @@
 <%= @movie.pretty_title %>
 <% end %>
 <div>
-	<div style="float:right;width:200px" class="text-comment">
-		<div id="slideshow" onclick="javascript: change_poster();">
-			<% 0.upto(@poster_files.size) do |index| %>
-			<%= image_tag poster_url(@movie,index), :size=>"200x300", :alt=>@movie.title, :class=>"poster #{(@poster_index==index)? 'active': ''}" %>
-			<% end %>
-		</div>
-		Change the poster by clicking on it
-	</div>
+	<%= render "edit_poster" %>
 	<%= form_for(@movie, :method=>:put, :id=>"edit_movie") do |f| %>
-	<%= hidden_field_tag("source_form", 2) %>
 	<%= hidden_field_tag("poster_index", @poster_index) %>
 	<p>
 		<div style="width:8em;display:inline-block">
@@ -29,19 +21,25 @@
 		<div style="width:8em;display:inline-block">
 			<%= f.label :rank %>:
 		</div>
-		<%= f.number_field(:rank, :in=>0..10, :class => "form-input") %> / 10
+		<%= f.number_field(:rank, :in=>Movie.range(:rank), :class => "form-input") %> / 10
 	</p>
 	<p>
 		<div style="width:8em;display:inline-block">
 			<%= f.label :seen %>:
 		</div>
-		<%= f.number_field(:seen, :in=>0..9999, :class => "form-input") %> time(s)
+		<%= f.number_field(:seen, :in=>Movie.range(:seen), :class => "form-input") %> time(s)
 	</p>
 	<p>
 		<div style="width:8em;display:inline-block">
 			Online:
 		</div>
-		<a href="file://<%= File.join(@movie.location.path,@movie.folder_name) %>"> <%= image_tag( @movie.online ? "img05.png" : "img06.png", :width => 16, :height => 16, :alt => @movie.online?.to_s)%> </a>
+		<a href="file://<%= @movie.folder_path %>"><%= image_tag( @movie.online ? "img05.png" : "img06.png", :width => 16, :height => 16, :alt => @movie.online.to_s)%></a>
+	</p>
+	<p>
+		<div style="width:8em;display:inline-block">
+			Path:
+		</div>
+		<span class="text-comment"><%= @movie.folder_path %></span>
 	</p>
 	<p align="center">
 		<%= f.submit "Save", :class=>  "form-button" %>

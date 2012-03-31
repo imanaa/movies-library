@@ -13,13 +13,9 @@ list of locations
 		<% @locations.each do |location| %>
 		<li>
 			<div class="number_movies">
-				<% if location.exists? then %>
 				(<%= "%03d" %location.movies.size  %>)
-				<% else %>
-				<%= image_tag("img07.png", :width => 16, :height => 16, :alt=> "Warning") %>
-				<% end %>
 			</div>
-			<%= location.path %>
+			<%= content_tag(:div, location.path, :class =>  location.reachable? ? "online_location" : "offline_location") %>
 			<%= button_to("Delete", location_path(location), :form_class => "right-button", :confirm => "Are you sure?", :method => :delete, :class => "form-button right-button fixed-size-button") %>
 			<%= button_to("Scan", scan_location_path(location), :form_class => "right-button", :method => :get, :class => "form-button right-button") %>
 		</li>

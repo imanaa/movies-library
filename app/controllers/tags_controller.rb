@@ -1,17 +1,18 @@
 class TagsController < ApplicationController
+  # Create new tags for the movie
   def create
     @movie = Movie.find(params[:movie_id])
-    tags   = params[:tag][:value].strip
-    @movie.tags!(tags)
+    @movie.tags!(params[:tag][:value])
     respond_to { |format|
       format.html { redirect_to edit_movie_path(@movie), :flash => { :notice => "Successfully Tagged!"} }
     }
   end
 
+  # Remove a tag
   def destroy
     @movie = Movie.find(params[:movie_id])
     @tag = Tag.find(params[:id])
-    @movie.tags.delete(@tag)
+    @movie.tags.destroy(@tag)
     respond_to { |format|
       format.html { redirect_to edit_movie_path(@movie), :flash => { :notice => "Successfully Removed!"} }
     }

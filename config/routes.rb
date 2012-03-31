@@ -3,6 +3,7 @@ MoviesLibrary::Application.routes.draw do
   resources :movies, :only => [:index, :edit, :update, :destroy] do
     get :poster, :on => :member, :format=>/(jpg|jpeg|png|gif)/
     get :search, :on => :collection
+    get :random, :on => :collection
     resources :tags,  :except => [:new, :edit, :show, :update]
   end
 

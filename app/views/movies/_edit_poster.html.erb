@@ -1,0 +1,13 @@
+<div style="float:right;width:200px" class="text-comment">
+	<% if @poster_files.size == 1 then %>
+	<%= image_tag poster_url(@movie,-1), :size=>"200x300", :alt=>@movie.title, :class=>"poster" %>
+	Cannot change the movie poster
+	<% else %>
+	<div id="slideshow" onclick="javascript: change_poster();">
+		<% @poster_files.each_index do |index| %>
+		<%= image_tag poster_url(@movie,index), :size=>"200x300", :alt=>@movie.title, :class=>"poster #{(@poster_index==index)? 'active': ''}" %>
+		<% end %>
+	</div>
+	Change the poster by clicking on it
+	<% end %>
+</div>

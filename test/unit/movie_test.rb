@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MovieTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "Should not save empty movies" do
+    assert ! Movie.new.save
+  end
 end

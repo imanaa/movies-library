@@ -30,23 +30,53 @@ class Movie < ActiveRecord::Base
   validates :seen, :numericality => { :only_integer => true, :greater_than_or_equal_to => range(:seen).min,  :less_than_or_equal_to => range(:seen).max }
   validates :year, :numericality => { :only_integer => true, :greater_than_or_equal_to => range(:year).min, :less_than_or_equal_to => range(:year).max }, :allow_nil => true
 
+  # Return the full path of the empty poster
+  def self.empty_poster
+    File.join(Rails.root, "app", "assets", "images", "img01.gif")
+  end
+
+  # Return a pretty for of the title
   def pretty_title
     return title.size>40 ? "#{title.to_s[0..40]} ..." : title
   end
 
-  def movie_folder_exists?
-    return (folder_name? and Location.movie_folder_exists?(self))
-  end
-
-  def poster_file_exists?
-    return (poster? and Location.poster_file_exists?(self))
-  end
-
-  # parse the tags from a given string, convert them into new Tag objects, and associate them with the current model
+  # Parse the tags from a given string, convert them into new Tag objects, and associate them with the current model
   def tags!(str)
+    str.strip!
     tags = str.split(",").map { |tag|
       Tag.find_or_create_by_value(tag.strip.downcase)
     }
     self.tags << tags
+  end
+
+  # Return the full path of the cached movie poster
+  def cached_poster
+    File.join(Rails.root,"posters",Rails.env,"img#{id}.jpg")
+  end
+
+  # Return the movie folder full path
+  def folder_path
+    File.join(location.path, folder_name)
+  end
+  
+  # The poster full path
+  def poster_path
+    return nil unless poster? 
+    return File.join folder_path, poster
+  end
+
+  # Is the movie folder reachable ?
+  def folder_reachable?
+    Dir.exists? folder_path
+  end
+
+  # If the movie folder is reachable, return an array of available posters; The empty string is the first element of this array
+  # Otherwise an array containing the cached poster
+  def available_posters
+    return [cached_poster] unless folder_reachable?
+    Dir.chdir(folder_path) {
+      posters = Dir['*.{jpg,jpeg,png,gif}'].sort().map! { |_filename| File.join(folder_path, _filename) }
+      return posters.unshift(Movie.empty_poster)
+    }
   end
 end

@@ -48,7 +48,7 @@
 				<aside id="sidebar">
 					<div>
 						<h3 style="display:inline;">Scan Locations</h3>
-						<%= button_to("Launch", scan_all_locations_path, :form_class => "right-button", :method => :get, :class => "form-button") %>
+						<%= button_to("Launch", scan_all_locations_path, :form_class => "right-button", :method => :get, :confirm=> "Are you sure ?", :class => "form-button") %>
 					</div>
 					<br />
 					<h3>Filters</h3>

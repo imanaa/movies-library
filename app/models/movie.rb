@@ -37,14 +37,14 @@ class Movie < ActiveRecord::Base
 
   # Return a pretty for of the title
   def pretty_title
-    return title.size>40 ? "#{title.to_s[0..40]} ..." : title
+    return title.size>40 ? "#{title.to_s[0..39]} ..." : title
   end
 
   # Parse the tags from a given string, convert them into new Tag objects, and associate them with the current model
   def tags!(str)
     str.strip!
     tags = str.split(",").map { |tag|
-      Tag.find_or_create_by_value(tag.strip.downcase)
+      self.tags.find_or_create_by_value(tag.strip.downcase)
     }
     self.tags << tags
   end

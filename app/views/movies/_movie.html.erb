@@ -1,5 +1,7 @@
 <div class="post">
-	<a href="#"><%= image_tag poster_url(movie), :size=>"100x150", :alt=>movie.title, :class=>"poster" %></a>
+	<%= link_to edit_movie_path(movie) do %>
+	<%= image_tag poster_url(movie), :size=>"100x150", :alt=>movie.title, :class=>"poster" %>
+	<% end %>
 	<h3><%= movie.pretty_title %></h3>
 	<div>
 		<%= form_for(movie, :method=>:put, :html => { :target=>"_blank" } ) do |f| %>
@@ -21,7 +23,7 @@
 		</div>
 		<%= f.submit("Save", :class => "form-button left-button") %>
 		<% end %>
-		<%= button_to("edit", edit_movie_path(movie), :method=>:get, :class=>  "form-button left-button") %>
-		<%= button_to("delete", movie_path(movie), :method=>"delete", :confirm=>'Are you sure?', :class=> "form-button left-button") %>
+		<%= button_to("edit", edit_movie_path(movie), :method=>:get, :form=> { :target=>"_blank" }, :class=>  "form-button left-button") %>
+		<%= button_to("delete", movie_path(movie), :method=>"delete", :confirm=>'Are you sure?', :form=> { :target=>"_blank" }, :class=> "form-button left-button") %>
 	</div>
 </div>

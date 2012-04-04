@@ -56,7 +56,7 @@ class MoviesController < ApplicationController
     _success = @movie.update_attributes(params[:movie])
 
     # update the poster
-    unless params[:poster_index].nil? then
+    if @movie.folder_reachable? and ! params[:poster_index].nil? then
       poster_index = params[:poster_index].to_i
       if poster_index <= 0 then
         @movie.poster = nil

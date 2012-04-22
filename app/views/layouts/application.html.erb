@@ -6,6 +6,7 @@
 		<%= stylesheet_link_tag    "application", :media => "all" %>
 		<%= javascript_include_tag "application" %>
 		<%= csrf_meta_tags %>
+		<%= yield :head %>
 	</head>
 	<body>
 		<div id="wrapper">
@@ -34,6 +35,9 @@
 						</li>
 						<li>
 							<%= link_to "Random Movie", random_movies_path  %>
+						</li>
+						<li>
+							<%= link_to "Tag Cloud", cloud_index_path  %>
 						</li>
 					</ul>
 					<br class="clearfix" />

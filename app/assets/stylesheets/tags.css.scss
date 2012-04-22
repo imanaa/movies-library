@@ -4,3 +4,23 @@
 a.tag_remove {
   text-decoration: none;
 }
+.heatmap {
+  border-top: 1px solid #aaaaaa;
+  border-bottom: 1px solid #aaaaaa;
+  width: 600px;
+  padding: 1em;
+}
+a.heatmap_element {
+  display: inline-block;
+  margin: .25em;
+  padding-top: 0em;
+  text-decoration:none;
+}
+// FIXME: need to correct CSS 
+//.heatmap_element {
+//  display: block;
+//  text-align: center;
+//  margin: .25em;
+//  padding-top: 0em;
+//  float: left;
+//}

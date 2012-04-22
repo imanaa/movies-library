@@ -91,9 +91,10 @@ class MoviesController < ApplicationController
 
   # shows a random movie
   def random
-    @movies = Movie.all
+    @movies = Movie.order(:id);
     unless @movies.nil? then
-      @movie = @movies[rand(@movies.size)]
+      _index = SecureRandom.random_number(@movies.size)
+      @movie = @movies[_index]
       params[:id] = @movie.id
       edit()
       return

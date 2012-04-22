@@ -6,6 +6,8 @@ MoviesLibrary::Application.routes.draw do
     get :random, :on => :collection
     resources :tags,  :except => [:new, :edit, :show, :update]
   end
+  
+  resources :cloud, :only => [:index], :controller => "tags", :action => "cloud"
 
   resources :locations, :only => [:index, :create, :update, :edit, :destroy] do
     get 'scan_all', :on => :collection

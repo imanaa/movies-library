@@ -1,4 +1,9 @@
 class TagsController < ApplicationController
+  # Tag Cloud
+  def index
+    @histogram = Tag.to_histogram
+  end
+  
   # Create new tags for the movie
   def create
     @movie = Movie.find(params[:movie_id])

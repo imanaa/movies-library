@@ -35,11 +35,6 @@ class Movie < ActiveRecord::Base
     File.join(Rails.root, "app", "assets", "images", "img01.gif")
   end
 
-  # Return a pretty for of the title
-  def pretty_title
-    return title.size>40 ? "#{title.to_s[0..39]} ..." : title
-  end
-
   # Parse the tags from a given string, convert them into new Tag objects, and associate them with the current model
   def tags!(str)
     str.strip!

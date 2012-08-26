@@ -3,7 +3,7 @@ class Tag < ActiveRecord::Base
 
   validates :value, :presence => true, :uniqueness => { :scope => :movie_id, :case_sensitive => false }
 
-  def self.to_histogram(max_entries=100)
+  def self.to_histogram(max_entries=1000)
     _tags = Tag.select('value, COUNT(value) as nb').group(:value).order('nb desc').limit(max_entries).all
     Hash[*_tags.collect { |_tag|
       [ _tag.value, _tag.nb ]

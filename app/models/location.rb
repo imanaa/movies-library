@@ -16,6 +16,26 @@ class Location < ActiveRecord::Base
     #scan_folder()
   end
 
+  # Analyze all movie strctures
+  #TODO: create the corresponding GUI
+  require "csv"
+  def Location.analyze_all
+    results = {}
+    Location.all.each { |location|
+      results.merge!(location.analyze())
+    }
+    CSV.open("D:/file.csv", "w:windows-1250") do |csv|
+      results.each { |folder_name, stats|
+        csv << [folder_name, stats[:movie_files], stats[:sub_folders]]
+      }
+    end
+  end
+
+  # Analyze the movie strctures
+  def analyze
+    analyze_folder
+  end
+
   # Is this locations reachable ?
   def reachable?
     Dir.exists?(path)
@@ -48,4 +68,26 @@ class Location < ActiveRecord::Base
       }
     }
   end
+
+  # Analyze folder structure
+  def analyze_folder
+    results = {}
+
+    if reachable? then
+      movies.each { |movie|
+        folder_name = movie.folder_path
+        next unless Dir.exists?(folder_name)
+
+        Dir.chdir(folder_name) do |d|
+          results[folder_name] = {
+            :movie_files => (Dir['*.avi'] + Dir['*.mkv'] + Dir['*.vob']).size ,
+            :sub_folders => Dir['*/'].size,
+          }
+        end
+      }
+    end
+
+    return results
+  end
+
 end

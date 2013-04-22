@@ -16,6 +16,7 @@ MoviesLibrary::Application.routes.draw do
   resources :admin, :only => [:index] do
     get 'delete_offline', :on => :collection
     get 'reindex', :on => :collection
+    get 'export', :on => :collection    
   end
 
   # The priority is based upon order of creation:

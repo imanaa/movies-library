@@ -1,4 +1,4 @@
 #!/bin/bash
-cd d:/workspace/movies-library
+cd c:/workspace/movies-library
 export RAILS_ENV=production
-rake jobs:work
+bundle exec rake jobs:work

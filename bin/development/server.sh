@@ -1,4 +1,5 @@
 #!/bin/bash
-cd d:/workspace/movies-library
-#export RAILS_ENV=production
+cd c:/workspace/movies-library
+rm tmp/pids/server.pid
+export RAILS_ENV=development
 rails server

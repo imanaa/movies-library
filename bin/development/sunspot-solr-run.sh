@@ -1,4 +1,4 @@
 #!/bin/bash
-cd d:/workspace/movies-library
-#export RAILS_ENV=production
+cd c:/workspace/movies-library
+export RAILS_ENV=development
 rake sunspot:solr:run

@@ -53,10 +53,10 @@ class Movie < ActiveRecord::Base
   def folder_path
     File.join(location.path, folder_name)
   end
-  
+
   # The poster full path
   def poster_path
-    return nil unless poster? 
+    return nil unless poster?
     return File.join folder_path, poster
   end
 
@@ -73,5 +73,48 @@ class Movie < ActiveRecord::Base
       posters = Dir['*.{jpg,jpeg,png,gif}'].sort().map! { |_filename| File.join(folder_path, _filename) }
       return posters.unshift(Movie.empty_poster)
     }
+  end
+
+  def self.export_all
+
+  end
+
+  def export()
+    return false unless folder_reachable?
+
+    hash = {
+      :title => self.title,
+      :year => self.year,
+      :seen => self.seen,
+      :rank => self.rank,
+      :poster => self.poster,
+      :updated_at => self.updated_at
+    }
+    s = []
+    self.tags.each { |tag|
+      s << tag.value
+    }
+    hash[:tags] = s.join(", ")
+
+    filename = File.join(folder_path,".info.yml",)
+    begin
+      File.open(filename,"w:ASCII-8BIT") do |file|
+        YAML.dump(hash, file)
+      end
+    rescue Exception => e
+      logger.error("Unable to Dump Movie attributes in #{filename}")
+      logger.error(e.message)
+      return false
+    end
+
+    return true
+  end
+
+  def self.export_all
+    errors = 0
+    Movie.all.each { |movie|
+      errors+=1 unless movie.export
+    }
+    return errors
   end
 end

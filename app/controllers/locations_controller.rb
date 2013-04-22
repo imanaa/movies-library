@@ -10,7 +10,7 @@ class LocationsController < ApplicationController
     @location = Location.new(params[:location])
 
     if Dir.exists?(@location.path.to_s) then
-      #The follwing line is to ease redundancy checking
+      # The following line is to ease redundancy checking
       @location.path = File.absolute_path(@location.path)
       if @location.save then
         flash[:notice] = "Successfully Created"
@@ -39,6 +39,7 @@ class LocationsController < ApplicationController
   def scan
     @location = Location.find(params[:id])
     @location.scan
+    Movie.delay.reindex
     respond_to { |format|
       format.html { redirect_to({:controller => "admin", :action => "index", :methods => :get, :status=> 303}, :notice => "Scan Launched" ) }
     }
@@ -47,6 +48,7 @@ class LocationsController < ApplicationController
   # Scan all locations
   def scan_all
     Location.scan_all
+    Movie.delay. reindex
     respond_to { |format|
       format.html { redirect_to({:controller => "admin", :action => "index", :methods => :get, :status=> 303}, :notice => "Scan Launched" ) }
     }

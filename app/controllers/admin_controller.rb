@@ -19,4 +19,11 @@ class AdminController < ApplicationController
       format.html { redirect_to({:controller => "admin", :action => "index", :status=> 303}, :notice => "Reindexation Launched ! " ) }
     }
   end
+
+  def export
+    Movie.delay.export_all
+    respond_to { |format|
+      format.html { redirect_to({:controller => "admin", :action => "index", :status=> 303}, :notice => "Export launched ! " ) }
+    }
+  end
 end
